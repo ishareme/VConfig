@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MConfig</title>
+    <script>
+        ;(function(win,doc){
+            var docEl = doc.documentElement,
+                UA    = navigator.userAgent,
+                isMeitu = /meitu|meipai/gi.test(UA);
+            var refreshRem =function (){
+                var w =docEl.getBoundingClientRect().width || 320;
+                var fontSize = w/320 * 20;
+                fontSize = fontSize > 40 ? 40 : fontSize;
+                docEl.style.fontSize = fontSize+'px';
+                var finalFontSize = parseFloat(win.getComputedStyle(docEl).getPropertyValue("font-size"));
+                if(finalFontSize === fontSize || isMeitu) return;
+                fontSize = fontSize+(fontSize-finalFontSize);
+                docEl.style.fontSize = fontSize+'px';
+                win.fontSize = fontSize;
+            },refreshRemId;
+            win.addEventListener('resize', function() {
+                clearTimeout(refreshRemId);
+                refreshRemId = setTimeout(refreshRem, 100);
+            }, false);
+            win.addEventListener('pageshow', function(e) {
+                if (e.persisted) {
+                    clearTimeout(refreshRemId);
+                    refreshRemId = setTimeout(refreshRem, 100);
+                }
+            }, false);
+            refreshRem();
+        })(window,document);
+    </script>
+</head>
+<body>
+    <script src="./dist/example.js"></script>
+</body>
+</html>
