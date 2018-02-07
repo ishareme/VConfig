@@ -2,7 +2,7 @@
 
 # VConfig
 
-> [git](http://f2er.meitu.com/hmz/VConfig/example/)
+> [git](https://github.com/ishareme/VConfig)
 
 > [npm](http://npm.meitu-int.com/#@meitu/vconfig)
 
